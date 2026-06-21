@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { X, Edit, Eye } from "lucide-react";
@@ -142,6 +143,15 @@ const TrelloBoard = () => {
   const user = useSelector((state) => state.auth.userInfo);
 
   //console.log(user);
+  const token = useSelector((state) => state.auth.token);
+
+// Create axios instance with token — add this inside component:
+const authAxios = axios.create({
+  baseURL: API_URL,
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
 
   let color = "#ffffff";
 

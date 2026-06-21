@@ -19,7 +19,7 @@ import Streak from "./Streak";
 axios.defaults.withCredentials = true;
 
 const API_URL =
-  import.meta.env.VITE_BACKEND_BASE_URL || "http://localhost:3000";
+  import.meta.env.VITE_BACKEND_BASE_URL || "https://taskmanagerbysatyamsaroj.onrender.com";
 
 const TaskDetailModal = ({ task, onClose }) => (
   <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">

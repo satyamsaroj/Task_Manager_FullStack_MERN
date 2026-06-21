@@ -21,7 +21,7 @@ const OAuth = ({ title }) => {
     try {
       const resultsFromGoogle = await signInWithPopup(auth, provider);
       //   console.log(resultsFromGoogle);
-      const res = await fetch(`${baseUrl || "http://localhost:3000"}/api/v1/user/google`, {
+      const res = await fetch(`${baseUrl || "https://taskmanagerbysatyamsaroj.onrender.com"}/api/v1/user/google`, {
         method: "POST",
         credentials: "include",
         headers: {

@@ -9,7 +9,7 @@ useEffect(()=>{
 },[userId]);
 const fetchStreak=async()=>{
 const res=await axios.get(
-`http://localhost:3000/api/streak/${userId}`
+`https://taskmanagerbysatyamsaroj.onrender.com/api/streak/${userId}`
 );
 setDays(res.data.days);
 };
@@ -27,7 +27,7 @@ const markDay = async(index)=>{
     setDays(updated);
 
     await axios.put(
-        `http://localhost:3000/api/streak/${userId}/${index+1}`,
+        `https://taskmanagerbysatyamsaroj.onrender.com/api/streak/${userId}/${index+1}`,
         {
             completed: updated[index].completed
         }

@@ -182,6 +182,7 @@ const google = asyncHandler(async (req, res) => {
   httpOnly: true,
   secure: false,
   sameSite: "none",
+  path: "/",
   maxAge: 24 * 60 * 60 * 1000,
 })
         .json(rest);
@@ -246,6 +247,7 @@ const google = asyncHandler(async (req, res) => {
   httpOnly: true,
   secure: false,
   sameSite: "none",
+  path: "/",
   maxAge: 24 * 60 * 60 * 1000,
 })
       .json(rest);

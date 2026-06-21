@@ -1,6 +1,6 @@
 
 import express from "express";
-import Streak from "../models/Streak.js";
+import Streak from "../models/streak.js";
 
 const router = express.Router();
 

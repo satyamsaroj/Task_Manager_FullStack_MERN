@@ -21,9 +21,12 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://mern-frontend-cyan-mu.vercel.app"
+      //"https://mern-frontend-cyan-mu.vercel.app"
+      process.env.FRONTEND_BASE_URL,
     ],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 

@@ -180,8 +180,8 @@ const google = asyncHandler(async (req, res) => {
         // })
         .cookie("jwt", token, {
   httpOnly: true,
-  secure: false,
-  sameSite: "none",
+  secure: true, // change to true after deployment
+  sameSite: "None",
   path: "/",
   maxAge: 24 * 60 * 60 * 1000,
 })
@@ -245,8 +245,8 @@ const google = asyncHandler(async (req, res) => {
       // })
       .cookie("jwt", token, {
   httpOnly: true,
-  secure: false,
-  sameSite: "none",
+  secure: true,
+  sameSite: "None",
   path: "/",
   maxAge: 24 * 60 * 60 * 1000,
 })

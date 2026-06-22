@@ -15,7 +15,8 @@ const secret = process.env.COOKIE_SECRET;
 const corsOptions = {
   origin: [
     "http://localhost:5173",
-    "https://mern-frontend-cyan-mu.vercel.app"
+    "https://mern-frontend-cyan-mu.vercel.app",
+    "https://taskmanager-satyam.vercel.app"
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],

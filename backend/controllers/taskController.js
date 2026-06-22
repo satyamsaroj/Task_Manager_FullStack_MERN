@@ -1,13 +1,6 @@
 import taskModel from "../models/Task.js";
 
-// const getTasks = async (req, res) => {
-//   try {
-//     const tasks = await taskModel.find().sort({ createdAt: -1 });
-//     res.status(200).json(tasks);
-//   } catch (error) {
-//     res.status(404).json({ message: error.message });
-//   }
-// };
+
 
 const getTasks = async (req, res) => {
   try {

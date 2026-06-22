@@ -1,127 +1,269 @@
-import userModel from "../models/User.js";
-import bcrypt from "bcryptjs";
-import asyncHandler from "../middlewares/asyncHandler.js";
-import generateToken from "../utils/generateToken.js";
-import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
+// import userModel from "../models/User.js";
+// import bcrypt from "bcryptjs";
+// import asyncHandler from "../middlewares/asyncHandler.js";
+// import generateToken from "../utils/generateToken.js";
+// import bcryptjs from "bcryptjs";
+// import jwt from "jsonwebtoken";
 
 
+// //         .json(rest);
+// //     }
+// //   } catch (error) {
+// //     throw new Error(error.message);
+// //   }
+// // });
+// const google = asyncHandler(async (req, res) => {
+//   const { name, email, googlePhotoUrl } = req.body;
+
+//   try {
+//     const user = await userModel.findOne({ email });
+
+//     // User already exists
+//     if (user) {
+//       const token = jwt.sign(
+//         { id: user._id },
+//         process.env.JWT_SECRET,
+//         { expiresIn: "1d" }
+//       );
+
+//       const { password, ...rest } = user._doc;
+
+//       return res
+//         .status(200)
+//         // .cookie("jwt", token, {
+//         //   httpOnly: true,
+//         //   secure: false,       // change to true after deployment
+//         //   sameSite: "Lax",     // change to None after deployment
+//         //   path: "/",
+//         //   maxAge: 24 * 60 * 60 * 1000,
+//         // })
+//         .cookie("jwt", token, {
+//   httpOnly: true,
+//   secure: true, // change to true after deployment
+//   sameSite: "None",
+//   path: "/",
+//   maxAge: 24 * 60 * 60 * 1000,
+// })
 //         .json(rest);
 //     }
+
+
+//     // Create new Google user
+
+//     const generatedPassword =
+//       Math.random().toString(36).slice(-8) +
+//       Math.random().toString(36).slice(-8);
+
+
+//     const hashedPassword = bcryptjs.hashSync(
+//       generatedPassword,
+//       10
+//     );
+
+
+//     const newUser = new userModel({
+
+//       firstname: name.split(" ")[0],
+
+//       lastname: name.split(" ")[1] || "",
+
+//       email,
+
+//       profilePicture: googlePhotoUrl,
+
+//       password: hashedPassword,
+
+//     });
+
+
+//     await newUser.save();
+
+
+//     const token = jwt.sign(
+//       {
+//         id: newUser._id,
+//       },
+//       process.env.JWT_SECRET,
+//       {
+//         expiresIn: "1d",
+//       }
+//     );
+
+
+//     const { password, ...rest } = newUser._doc;
+
+
+//     return res
+//       .status(200)
+//       // .cookie("jwt", token, {
+//       //   httpOnly: true,
+//       //   secure: false,       // change to true after deployment
+//       //   sameSite: "Lax",     // change to None after deployment
+//       //   path: "/",
+//       //   maxAge: 24 * 60 * 60 * 1000,
+//       // })
+//       .cookie("jwt", token, {
+//   httpOnly: true,
+//   secure: true,
+//   sameSite: "None",
+//   path: "/",
+//   maxAge: 24 * 60 * 60 * 1000,
+// })
+//       .json(rest);
+
+
 //   } catch (error) {
+
 //     throw new Error(error.message);
+
 //   }
 // });
-const google = asyncHandler(async (req, res) => {
-  const { name, email, googlePhotoUrl } = req.body;
+// // const signupUser = asyncHandler(async (req, res) => {
+// //   const { firstname, lastname, email, password } = req.body;
 
-  try {
-    const user = await userModel.findOne({ email });
+// //   if (!userModel || !firstname || !lastname || !email || !password) {
+// //     throw new Error("Please fill all the fields");
+// //   }
 
-    // User already exists
-    if (user) {
-      const token = jwt.sign(
-        { id: user._id },
-        process.env.JWT_SECRET,
-        { expiresIn: "1d" }
-      );
+// //   const existUser = await userModel.findOne({ email });
+// //   if (existUser) {
+// //     return res.status(400).send("User already exists");
+// //   }
 
-      const { password, ...rest } = user._doc;
+// //   const salt = await bcrypt.genSalt(10);
+// //   const hashedPassword = await bcrypt.hash(password, salt);
+// //   const newUser = new userModel({
+// //     firstname: firstname,
+// //     lastname: lastname,
+// //     email: email,
+// //     password: hashedPassword,
+// //   });
 
-      return res
-        .status(200)
-        // .cookie("jwt", token, {
-        //   httpOnly: true,
-        //   secure: false,       // change to true after deployment
-        //   sameSite: "Lax",     // change to None after deployment
-        //   path: "/",
-        //   maxAge: 24 * 60 * 60 * 1000,
-        // })
-        .cookie("jwt", token, {
-  httpOnly: true,
-  secure: true, // change to true after deployment
-  sameSite: "None",
-  path: "/",
-  maxAge: 24 * 60 * 60 * 1000,
-})
-        .json(rest);
-    }
+// //   try {
+// //     await newUser.save();
+// //     generateToken(res, newUser._id);
+// //     res.status(201).json({
+// //       success: true,
+// //       _id: newUser._id,
+// //       firstname: newUser.firstname,
+// //       lastname: newUser.lastname,
+// //       email: newUser.email,
+// //     });
+// //   } catch (error) {
+// //     res.status(400);
+// //     throw new Error("Invalid user data");
+// //   }
+// // });
 
+// // const loginUser = asyncHandler(async (req, res) => {
+// //   const { email, password } = req.body;
 
-    // Create new Google user
+// //   const existingUser = await userModel.findOne({ email });
 
-    const generatedPassword =
-      Math.random().toString(36).slice(-8) +
-      Math.random().toString(36).slice(-8);
+// //   if (existingUser) {
+// //     const isPasswordValid = await bcrypt.compare(
+// //       password,
+// //       existingUser.password
+// //     );
 
+// //     if (isPasswordValid) {
+// //       generateToken(res, existingUser._id);
+// //       res.status(200).json({
+// //         _id: existingUser._id,
+// //         firstname: existingUser.firstname,
+// //         lastname: existingUser.lastname,
+// //         email: existingUser.email,
+// //       });
+// //     } else {
+// //       res.status(401).json({ message: "Invalid Password" });
+// //     }
+// //   } else {
+// //     res.status(404).json({ message: "User not found" });
+// //   }
+// // });
 
-    const hashedPassword = bcryptjs.hashSync(
-      generatedPassword,
-      10
-    );
+// // const logoutUser = asyncHandler(async (req, res) => {
+// //   res.cookie("jwt", "", {
+// //     httpOnly: true,
+// //     expires: new Date(0),
+// //   });
 
+// //   res.status(200).json({ message: "Logged out successfully" });
+// // });
 
-    const newUser = new userModel({
+// // const google = asyncHandler(async (req, res) => {
+// //   const { name, email, googlePhotoUrl } = req.body;
 
-      firstname: name.split(" ")[0],
+// //   try {
+// //     const user = await userModel.findOne({ email });
+// //     if (user) {
+// //       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+// //         expiresIn: "1d",
+// //       });
+// //       const { password, ...rest } = user._doc;
+// //       res
+// //         .status(200)
+// //         .cookie("jwt", token, {
+// //           httpOnly: true,
+// //           domain,
+// //           signed: true,
+// //           path: "/",
+// //           secure: true,
+// //           sameSite: "None",
+// //           maxAge: 1 * 24 * 60 * 60 * 1000,
+// //         })
+// //         .json(rest);
+// //     } else {
+// //       const generatedPassword =
+// //         Math.random().toString(36).slice(-8) +
+// //         Math.random().toString(36).slice(-8);
+// //       const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
 
-      lastname: name.split(" ")[1] || "",
+// //       const newUser = new userModel({
+// //         firstname: name,
+// //         lastname: name,
+// //         email,
+// //         profilePicture: googlePhotoUrl,
+// //         password: hashedPassword,
+// //       });
 
-      email,
+// //       await newUser.save();
 
-      profilePicture: googlePhotoUrl,
+// //       const token = jwt.sign(
+// //         {
+// //           id: newUser._id,
+// //         },
+// //         process.env.JWT_SECRET,
+// //         {
+// //           expiresIn: "1d",
+// //         }
+// //       );
+// // //       const cookieOptions = {
+// // //   httpOnly: true,
+// // //   secure: process.env.NODE_ENV === "production",
+// // //   sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+// // //   path: "/",
+// // //   maxAge: 24 * 60 * 60 * 1000,
+// // // };
+// // res.status(200).cookie("jwt", token, cookieOptions).json(rest);
 
-      password: hashedPassword,
+// //       const { password, ...rest } = newUser._doc;
 
-    });
-
-
-    await newUser.save();
-
-
-    const token = jwt.sign(
-      {
-        id: newUser._id,
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "1d",
-      }
-    );
-
-
-    const { password, ...rest } = newUser._doc;
-
-
-    return res
-      .status(200)
-      // .cookie("jwt", token, {
-      //   httpOnly: true,
-      //   secure: false,       // change to true after deployment
-      //   sameSite: "Lax",     // change to None after deployment
-      //   path: "/",
-      //   maxAge: 24 * 60 * 60 * 1000,
-      // })
-      .cookie("jwt", token, {
-  httpOnly: true,
-  secure: true,
-  sameSite: "None",
-  path: "/",
-  maxAge: 24 * 60 * 60 * 1000,
-})
-      .json(rest);
-
-
-  } catch (error) {
-
-    throw new Error(error.message);
-
-  }
-});
+// //       res
+// //         .status(200)
+// //         .cookie("jwt", token, {
+// //           httpOnly: true,
+// //           domain,
+// //           signed: true,
+// //           path: "/",
+// //           secure: true,
+// //           sameSite: "None",
+// //           maxAge: 1 * 24 * 60 * 60 * 1000,
+// //         })
 // const signupUser = asyncHandler(async (req, res) => {
 //   const { firstname, lastname, email, password } = req.body;
 
-//   if (!userModel || !firstname || !lastname || !email || !password) {
+//   if (!firstname || !lastname || !email || !password) {
 //     throw new Error("Please fill all the fields");
 //   }
 
@@ -133,17 +275,18 @@ const google = asyncHandler(async (req, res) => {
 //   const salt = await bcrypt.genSalt(10);
 //   const hashedPassword = await bcrypt.hash(password, salt);
 //   const newUser = new userModel({
-//     firstname: firstname,
-//     lastname: lastname,
-//     email: email,
+//     firstname,
+//     lastname,
+//     email,
 //     password: hashedPassword,
 //   });
 
 //   try {
 //     await newUser.save();
-//     generateToken(res, newUser._id);
+//     const token = generateToken(newUser._id); // ← no res
 //     res.status(201).json({
 //       success: true,
+//       token, // ← send token in body
 //       _id: newUser._id,
 //       firstname: newUser.firstname,
 //       lastname: newUser.lastname,
@@ -161,14 +304,12 @@ const google = asyncHandler(async (req, res) => {
 //   const existingUser = await userModel.findOne({ email });
 
 //   if (existingUser) {
-//     const isPasswordValid = await bcrypt.compare(
-//       password,
-//       existingUser.password
-//     );
+//     const isPasswordValid = await bcrypt.compare(password, existingUser.password);
 
 //     if (isPasswordValid) {
-//       generateToken(res, existingUser._id);
+//       const token = generateToken(existingUser._id); // ← no res
 //       res.status(200).json({
+//         token, // ← send token in body
 //         _id: existingUser._id,
 //         firstname: existingUser.firstname,
 //         lastname: existingUser.lastname,
@@ -183,11 +324,6 @@ const google = asyncHandler(async (req, res) => {
 // });
 
 // const logoutUser = asyncHandler(async (req, res) => {
-//   res.cookie("jwt", "", {
-//     httpOnly: true,
-//     expires: new Date(0),
-//   });
-
 //   res.status(200).json({ message: "Logged out successfully" });
 // });
 
@@ -196,70 +332,48 @@ const google = asyncHandler(async (req, res) => {
 
 //   try {
 //     const user = await userModel.findOne({ email });
+
 //     if (user) {
-//       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-//         expiresIn: "1d",
-//       });
+//       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 //       const { password, ...rest } = user._doc;
-//       res
-//         .status(200)
-//         .cookie("jwt", token, {
-//           httpOnly: true,
-//           domain,
-//           signed: true,
-//           path: "/",
-//           secure: true,
-//           sameSite: "None",
-//           maxAge: 1 * 24 * 60 * 60 * 1000,
-//         })
-//         .json(rest);
-//     } else {
-//       const generatedPassword =
-//         Math.random().toString(36).slice(-8) +
-//         Math.random().toString(36).slice(-8);
-//       const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
+//       return res.status(200).json({ token, ...rest }); // ← token in body
+//     }
 
-//       const newUser = new userModel({
-//         firstname: name,
-//         lastname: name,
-//         email,
-//         profilePicture: googlePhotoUrl,
-//         password: hashedPassword,
-//       });
+//     const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+//     const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
 
-//       await newUser.save();
+//     const newUser = new userModel({
+//       firstname: name.split(" ")[0],
+//       lastname: name.split(" ")[1] || "",
+//       email,
+//       profilePicture: googlePhotoUrl,
+//       password: hashedPassword,
+//     });
 
-//       const token = jwt.sign(
-//         {
-//           id: newUser._id,
-//         },
-//         process.env.JWT_SECRET,
-//         {
-//           expiresIn: "1d",
-//         }
-//       );
-// //       const cookieOptions = {
-// //   httpOnly: true,
-// //   secure: process.env.NODE_ENV === "production",
-// //   sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-// //   path: "/",
-// //   maxAge: 24 * 60 * 60 * 1000,
-// // };
-// res.status(200).cookie("jwt", token, cookieOptions).json(rest);
+//     await newUser.save();
 
-//       const { password, ...rest } = newUser._doc;
+//     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+//     const { password, ...rest } = newUser._doc;
+//     return res.status(200).json({ token, ...rest }); // ← token in body
 
-//       res
-//         .status(200)
-//         .cookie("jwt", token, {
-//           httpOnly: true,
-//           domain,
-//           signed: true,
-//           path: "/",
-//           secure: true,
-//           sameSite: "None",
-//           maxAge: 1 * 24 * 60 * 60 * 1000,
-//         })
+//   } catch (error) {
+//     throw new Error(error.message);
+//   }
+// });
+// export { signupUser, loginUser, logoutUser, google };
+
+
+
+
+
+
+import userModel from "../models/User.js";
+import bcrypt from "bcryptjs";
+import asyncHandler from "../middlewares/asyncHandler.js";
+import generateToken from "../utils/generateToken.js";
+import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
+
 const signupUser = asyncHandler(async (req, res) => {
   const { firstname, lastname, email, password } = req.body;
 
@@ -283,10 +397,10 @@ const signupUser = asyncHandler(async (req, res) => {
 
   try {
     await newUser.save();
-    const token = generateToken(newUser._id); // ← no res
+    const token = generateToken(newUser._id);
     res.status(201).json({
       success: true,
-      token, // ← send token in body
+      token,
       _id: newUser._id,
       firstname: newUser.firstname,
       lastname: newUser.lastname,
@@ -307,9 +421,9 @@ const loginUser = asyncHandler(async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, existingUser.password);
 
     if (isPasswordValid) {
-      const token = generateToken(existingUser._id); // ← no res
+      const token = generateToken(existingUser._id);
       res.status(200).json({
-        token, // ← send token in body
+        token,
         _id: existingUser._id,
         firstname: existingUser.firstname,
         lastname: existingUser.lastname,
@@ -334,12 +448,18 @@ const google = asyncHandler(async (req, res) => {
     const user = await userModel.findOne({ email });
 
     if (user) {
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+      const token = jwt.sign(
+        { id: user._id },
+        process.env.JWT_SECRET,
+        { expiresIn: "1d" }
+      );
       const { password, ...rest } = user._doc;
-      return res.status(200).json({ token, ...rest }); // ← token in body
+      return res.status(200).json({ token, ...rest });
     }
 
-    const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+    const generatedPassword =
+      Math.random().toString(36).slice(-8) +
+      Math.random().toString(36).slice(-8);
     const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
 
     const newUser = new userModel({
@@ -352,12 +472,17 @@ const google = asyncHandler(async (req, res) => {
 
     await newUser.save();
 
-    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+    const token = jwt.sign(
+      { id: newUser._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
     const { password, ...rest } = newUser._doc;
-    return res.status(200).json({ token, ...rest }); // ← token in body
+    return res.status(200).json({ token, ...rest });
 
   } catch (error) {
     throw new Error(error.message);
   }
 });
+
 export { signupUser, loginUser, logoutUser, google };
